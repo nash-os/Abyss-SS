@@ -10,7 +10,7 @@
             --bg: #000000;
             --accent: #ff003c;
             --silver: #e5e5e5;
-            --glass: rgba(8, 8, 8, 0.9);
+            --glass: rgba(8, 8, 8, 0.95);
             --border: rgba(255, 255, 255, 0.05);
             --glow: 0 0 30px rgba(255, 0, 60, 0.3);
         }
@@ -27,7 +27,6 @@
             justify-content: center;
         }
 
-        /* FX BACKGROUND */
         #canvas-bg { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.4; }
         .vignette {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -35,7 +34,6 @@
             pointer-events: none;
         }
 
-        /* ANIMATED LOGIN CARD */
         .auth-card {
             background: var(--glass);
             backdrop-filter: blur(60px);
@@ -56,7 +54,7 @@
         .logo-text {
             font-family: 'Syncopate', sans-serif;
             font-weight: 700;
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             letter-spacing: 15px;
             text-align: center;
             margin-bottom: 3rem;
@@ -75,7 +73,7 @@
         input {
             width: 100%; background: transparent; border: 1px solid #111;
             padding: 1.2rem; color: #fff; font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.9rem; transition: 0.4s;
         }
         input:focus { border-color: var(--accent); box-shadow: var(--glow); outline: none; }
 
@@ -87,7 +85,6 @@
         }
         .btn:hover { background: var(--silver); color: #000; box-shadow: 0 0 40px rgba(255,255,255,0.2); }
 
-        /* DASHBOARD VIEW */
         #dash-view { display: none; width: 95%; max-width: 1400px; height: 85vh; padding: 0; overflow: hidden; }
         .dash-layout { display: grid; grid-template-columns: 300px 1fr; height: 100%; }
 
@@ -106,19 +103,16 @@
         nav li.active, nav li:hover { color: #fff; background: rgba(255, 255, 255, 0.02); border-right: 3px solid var(--accent); }
 
         main { padding: 4rem; overflow-y: auto; background: rgba(0,0,0,0.2); }
-        main::-webkit-scrollbar { width: 3px; }
-        main::-webkit-scrollbar-thumb { background: var(--accent); }
-
         .header-dash { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; }
         .header-dash h1 { font-size: 4rem; font-weight: 900; letter-spacing: -4px; line-height: 0.9; }
 
         table { width: 100%; border-collapse: collapse; }
         th { text-align: left; padding: 1.5rem; color: #222; font-size: 0.7rem; border-bottom: 2px solid #111; letter-spacing: 3px; font-weight: 900; }
-        td { padding: 1.5rem; border-bottom: 1px solid #080808; font-family: 'JetBrains Mono'; font-size: 0.85rem; transition: 0.3s; }
-        tr:hover td { background: rgba(255,255,255,0.01); color: var(--accent); }
-
+        td { padding: 1.5rem; border-bottom: 1px solid #080808; font-family: 'JetBrains Mono'; font-size: 0.85rem; }
+        
         .status-tag { padding: 4px 10px; font-size: 0.65rem; font-weight: 900; background: #fff; color: #000; text-transform: uppercase; }
-        .action-btn { color: var(--accent); font-weight: 900; background: none; border: none; font-size: 0.7rem; letter-spacing: 1px; cursor: pointer; }
+        .action-btn { color: var(--accent); font-weight: 900; background: none; border: none; font-size: 0.7rem; letter-spacing: 1px; cursor: pointer; margin-right: 10px; }
+        .action-btn:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -142,11 +136,9 @@
     <div id="dash-view" class="auth-card">
         <div class="dash-layout">
             <aside>
-                <div class="logo-text" style="font-size: 1.2rem; letter-spacing: 5px; text-align: left; margin-bottom: 5rem;">ABYSS SS</div>
+                <div class="logo-text" style="font-size: 1rem; letter-spacing: 5px; text-align: left; margin-bottom: 5rem;">ABYSS SS</div>
                 <nav>
                     <li class="active">DATABASE_STORAGE</li>
-                    <li>HWID_CONTROLS</li>
-                    <li>TRAFFIC_LOGS</li>
                     <li onclick="location.reload()" style="margin-top: auto; color: var(--accent);">TERMINATE_SESSION</li>
                 </nav>
             </aside>
@@ -154,7 +146,7 @@
                 <div class="header-dash">
                     <div>
                         <h1>CORE_DB</h1>
-                        <p style="color: #333; font-weight: 800; font-size: 0.7rem; margin-top: 10px;">AUTH_TOKEN: ACTIVE // REPO: ABYSS-SS</p>
+                        <p id="status-text" style="color: #444; font-weight: 800; font-size: 0.7rem; margin-top: 10px;">AUTH_TOKEN: ACTIVE // REPO: ABYSS-SS</p>
                     </div>
                     <button class="btn" style="width: auto; padding: 1.2rem 2.5rem;" onclick="generateKey()">+ GENERATE_LICENSE</button>
                 </div>
@@ -168,54 +160,37 @@
                             <th>MANAGEMENT</th>
                         </tr>
                     </thead>
-                    <tbody id="keyTableBody">
-                        </tbody>
+                    <tbody id="keyTableBody"></tbody>
                 </table>
             </main>
         </div>
     </div>
 
     <script>
-        // CONFIGURACIÓN DE ACCESO
         const GITHUB_TOKEN = "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"; 
         const REPO = "nash-os/Abyss-SS";
         const FILE_PATH = "keys.json";
         const API_URL = `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
 
-        // CANVAS BACKGROUND ANIMATION
-        const canvas = document.getElementById('canvas-bg');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
-        function initCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        class Particle {
-            constructor() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.s = Math.random()*2.5; this.v = Math.random()*0.4; }
-            draw() { ctx.fillStyle = 'rgba(255,255,255,0.2)'; ctx.beginPath(); ctx.arc(this.x, this.y, this.s, 0, Math.PI*2); ctx.fill(); this.y-=this.v; if(this.y < -10) this.y = canvas.height+10; }
-        }
-        initCanvas();
-        for(let i=0; i<80; i++) particles.push(new Particle());
-        function animate() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>p.draw()); requestAnimationFrame(animate); }
-        animate();
-
-        // AUTH LOGIC
+        // Login
         function initCore() {
             const u = document.getElementById('user').value;
             const p = document.getElementById('pass').value;
             if(u === "Nash" && p === "Abyss2026") {
-                document.getElementById('login-view').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('login-view').style.display = 'none';
-                    const dv = document.getElementById('dash-view');
-                    dv.style.display = 'block';
-                    loadDatabase();
-                }, 500);
-            } else { alert("SYSTEM_ERROR: INVALID_CREDENTIALS"); }
+                document.getElementById('login-view').style.display = 'none';
+                document.getElementById('dash-view').style.display = 'block';
+                loadDatabase();
+            } else { alert("ERROR: INVALID ACCESS"); }
         }
 
-        // DATABASE LOGIC (GITHUB SYNC)
+        // Cargar Base de Datos
         async function loadDatabase() {
+            document.getElementById('status-text').innerText = "FETCHING DATA...";
             try {
-                const res = await fetch(`https://raw.githubusercontent.com/${REPO}/main/${FILE_PATH}?t=${Date.now()}`);
+                // Forzamos lectura de API para evitar cache de GitHub Pages
+                const res = await fetch(API_URL, {
+                    headers: { "Authorization": `token ${GITHUB_TOKEN}`, "Accept": "application/vnd.github.v3.raw" }
+                });
                 const data = await res.json();
                 const tbody = document.getElementById('keyTableBody');
                 tbody.innerHTML = '';
@@ -226,24 +201,29 @@
                             <td>${key}</td>
                             <td><span class="status-tag">${info.status}</span></td>
                             <td style="color: #444;">${info.hwid}</td>
-                            <td><button class="action-btn" onclick="deleteKey('${key}')">[RESET]</button></td>
+                            <td>
+                                <button class="action-btn" onclick="deleteKey('${key}')">[DELETE]</button>
+                            </td>
                         </tr>`;
                 });
-            } catch(e) { console.error("Sync Error:", e); }
+                document.getElementById('status-text').innerText = "AUTH_TOKEN: ACTIVE // SYNCED";
+            } catch(e) { 
+                document.getElementById('status-text').innerText = "SYNC_ERROR";
+                console.error(e); 
+            }
         }
 
+        // Generar Nueva Llave
         async function generateKey() {
             const newKey = "ABYSS-" + Math.random().toString(36).substr(2, 9).toUpperCase();
-            
-            // 1. Get current SHA
+            document.getElementById('status-text').innerText = "GENERATING...";
+
             const get = await fetch(API_URL, { headers: { "Authorization": `token ${GITHUB_TOKEN}` } });
             const fileData = await get.json();
             const content = JSON.parse(atob(fileData.content));
 
-            // 2. Add new data
             content[newKey] = { "hwid": "none", "status": "active", "expires": "2026-12-31" };
 
-            // 3. Update GitHub
             const update = await fetch(API_URL, {
                 method: "PUT",
                 headers: { "Authorization": `token ${GITHUB_TOKEN}`, "Content-Type": "application/json" },
@@ -254,18 +234,21 @@
                 })
             });
 
-            if(update.ok) { loadDatabase(); } else { alert("GITHUB_API_ERROR"); }
+            if(update.ok) { setTimeout(loadDatabase, 500); }
         }
 
+        // Borrar Llave
         async function deleteKey(target) {
-            if(!confirm(`¿Eliminar llave ${target}?`)) return;
+            if(!confirm(`¿Eliminar definitivamente ${target}?`)) return;
+            document.getElementById('status-text').innerText = "PURGING...";
+
             const get = await fetch(API_URL, { headers: { "Authorization": `token ${GITHUB_TOKEN}` } });
             const fileData = await get.json();
             const content = JSON.parse(atob(fileData.content));
             
             delete content[target];
 
-            await fetch(API_URL, {
+            const update = await fetch(API_URL, {
                 method: "PUT",
                 headers: { "Authorization": `token ${GITHUB_TOKEN}`, "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -274,8 +257,24 @@
                     sha: fileData.sha
                 })
             });
-            loadDatabase();
+
+            if(update.ok) { setTimeout(loadDatabase, 500); }
         }
+
+        // Canvas Anim
+        const canvas = document.getElementById('canvas-bg');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+        function initCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        class Particle {
+            constructor() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.s = Math.random()*2; this.v = Math.random()*0.3; }
+            draw() { ctx.fillStyle = 'rgba(255,255,255,0.1)'; ctx.beginPath(); ctx.arc(this.x, this.y, this.s, 0, Math.PI*2); ctx.fill(); this.y-=this.v; if(this.y < -10) this.y = canvas.height+10; }
+        }
+        initCanvas();
+        for(let i=0; i<60; i++) particles.push(new Particle());
+        function animate() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>p.draw()); requestAnimationFrame(animate); }
+        animate();
     </script>
 </body>
 </html>
