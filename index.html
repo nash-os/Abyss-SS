@@ -10,7 +10,7 @@
             --bg: #000000;
             --accent: #ff003c;
             --silver: #e5e5e5;
-            --glass: rgba(8, 8, 8, 0.95);
+            --glass: rgba(8, 8, 8, 0.98);
             --border: rgba(255, 255, 255, 0.05);
             --glow: 0 0 30px rgba(255, 0, 60, 0.3);
         }
@@ -42,7 +42,7 @@
             width: 480px;
             position: relative;
             box-shadow: 0 0 100px rgba(0,0,0,1);
-            animation: emerge 1s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: emerge 0.8s cubic-bezier(0.16, 1, 0.3, 1);
             z-index: 10;
         }
 
@@ -54,8 +54,8 @@
         .logo-text {
             font-family: 'Syncopate', sans-serif;
             font-weight: 700;
-            font-size: 2.5rem;
-            letter-spacing: 15px;
+            font-size: 2.2rem;
+            letter-spacing: 12px;
             text-align: center;
             margin-bottom: 3rem;
             background: linear-gradient(to right, #fff, var(--silver), #333);
@@ -66,27 +66,27 @@
 
         .input-group { position: relative; margin-bottom: 2rem; }
         .input-group label {
-            font-size: 0.6rem; font-weight: 900; color: #555;
+            font-size: 0.6rem; font-weight: 900; color: #444;
             text-transform: uppercase; letter-spacing: 3px;
             position: absolute; top: -12px; left: 15px; background: #000; padding: 0 8px;
         }
         input {
             width: 100%; background: transparent; border: 1px solid #111;
             padding: 1.2rem; color: #fff; font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem; transition: 0.4s;
+            font-size: 0.9rem; transition: 0.3s;
         }
         input:focus { border-color: var(--accent); box-shadow: var(--glow); outline: none; }
 
         .btn {
             width: 100%; padding: 1.2rem; background: transparent;
             border: 1px solid var(--silver); color: var(--silver);
-            font-family: 'Syncopate', sans-serif; font-size: 0.75rem; font-weight: 700;
+            font-family: 'Syncopate', sans-serif; font-size: 0.7rem; font-weight: 700;
             cursor: pointer; transition: 0.4s; letter-spacing: 2px;
         }
-        .btn:hover { background: var(--silver); color: #000; box-shadow: 0 0 40px rgba(255,255,255,0.2); }
+        .btn:hover { background: var(--silver); color: #000; box-shadow: 0 0 40px rgba(255,255,255,0.1); }
 
         #dash-view { display: none; width: 95%; max-width: 1400px; height: 85vh; padding: 0; overflow: hidden; }
-        .dash-layout { display: grid; grid-template-columns: 300px 1fr; height: 100%; }
+        .dash-layout { display: grid; grid-template-columns: 280px 1fr; height: 100%; }
 
         aside { 
             background: rgba(5, 5, 5, 0.8); 
@@ -97,21 +97,21 @@
         }
         
         nav li { 
-            padding: 1.2rem; color: #333; font-size: 0.7rem; font-weight: 900; list-style: none;
+            padding: 1.2rem; color: #333; font-size: 0.65rem; font-weight: 900; list-style: none;
             letter-spacing: 2px; transition: 0.3s; cursor: pointer;
         }
-        nav li.active, nav li:hover { color: #fff; background: rgba(255, 255, 255, 0.02); border-right: 3px solid var(--accent); }
+        nav li.active, nav li:hover { color: #fff; border-left: 3px solid var(--accent); background: rgba(255,255,255,0.01); }
 
-        main { padding: 4rem; overflow-y: auto; background: rgba(0,0,0,0.2); }
+        main { padding: 4rem; overflow-y: auto; background: rgba(0,0,0,0.3); }
         .header-dash { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; }
-        .header-dash h1 { font-size: 4rem; font-weight: 900; letter-spacing: -4px; line-height: 0.9; }
+        .header-dash h1 { font-size: 3.5rem; font-weight: 900; letter-spacing: -3px; line-height: 0.9; }
 
         table { width: 100%; border-collapse: collapse; }
-        th { text-align: left; padding: 1.5rem; color: #222; font-size: 0.7rem; border-bottom: 2px solid #111; letter-spacing: 3px; font-weight: 900; }
-        td { padding: 1.5rem; border-bottom: 1px solid #080808; font-family: 'JetBrains Mono'; font-size: 0.85rem; }
+        th { text-align: left; padding: 1.5rem; color: #222; font-size: 0.6rem; border-bottom: 1px solid #111; letter-spacing: 3px; }
+        td { padding: 1.5rem; border-bottom: 1px solid #080808; font-family: 'JetBrains Mono'; font-size: 0.8rem; }
         
-        .status-tag { padding: 4px 10px; font-size: 0.65rem; font-weight: 900; background: #fff; color: #000; text-transform: uppercase; }
-        .action-btn { color: var(--accent); font-weight: 900; background: none; border: none; font-size: 0.7rem; letter-spacing: 1px; cursor: pointer; margin-right: 10px; }
+        .status-tag { padding: 4px 8px; font-size: 0.6rem; font-weight: 900; background: #fff; color: #000; text-transform: uppercase; }
+        .action-btn { color: var(--accent); font-weight: 900; background: none; border: none; font-size: 0.65rem; letter-spacing: 1px; cursor: pointer; }
         .action-btn:hover { text-decoration: underline; }
     </style>
 </head>
@@ -124,11 +124,11 @@
         <div class="logo-text">ABYSS</div>
         <div class="input-group">
             <label>Operator ID</label>
-            <input type="text" id="user" placeholder="NASH_SYSTEMS">
+            <input type="text" id="user" value="Nash">
         </div>
         <div class="input-group">
             <label>Security Phrase</label>
-            <input type="password" id="pass" placeholder="••••••••">
+            <input type="password" id="pass" value="Abyss2026">
         </div>
         <button class="btn" onclick="initCore()">INITIALIZE_SESSION</button>
     </div>
@@ -138,17 +138,17 @@
             <aside>
                 <div class="logo-text" style="font-size: 1rem; letter-spacing: 5px; text-align: left; margin-bottom: 5rem;">ABYSS SS</div>
                 <nav>
-                    <li class="active">DATABASE_STORAGE</li>
-                    <li onclick="location.reload()" style="margin-top: auto; color: var(--accent);">TERMINATE_SESSION</li>
+                    <li class="active">/ DATABASE</li>
+                    <li onclick="location.reload()" style="margin-top: auto; color: var(--accent);">/ DISCONNECT</li>
                 </nav>
             </aside>
             <main>
                 <div class="header-dash">
                     <div>
                         <h1>CORE_DB</h1>
-                        <p id="status-text" style="color: #444; font-weight: 800; font-size: 0.7rem; margin-top: 10px;">AUTH_TOKEN: ACTIVE // REPO: ABYSS-SS</p>
+                        <p id="status-text" style="color: #444; font-weight: 800; font-size: 0.65rem; margin-top: 10px;">AUTH_TOKEN: ACTIVE // REPO: ABYSS-SS</p>
                     </div>
-                    <button class="btn" style="width: auto; padding: 1.2rem 2.5rem;" onclick="generateKey()">+ GENERATE_LICENSE</button>
+                    <button class="btn" style="width: auto; padding: 1.2rem 2.5rem;" onclick="generateKey()">+ GENERATE_NEW</button>
                 </div>
 
                 <table>
@@ -167,12 +167,13 @@
     </div>
 
     <script>
+        // CONFIG - REEMPLAZA EL TOKEN SI ESTÁ BORRADO
         const GITHUB_TOKEN = "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"; 
         const REPO = "nash-os/Abyss-SS";
         const FILE_PATH = "keys.json";
         const API_URL = `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
 
-        // Login
+        // Iniciar Sesión
         function initCore() {
             const u = document.getElementById('user').value;
             const p = document.getElementById('pass').value;
@@ -180,17 +181,24 @@
                 document.getElementById('login-view').style.display = 'none';
                 document.getElementById('dash-view').style.display = 'block';
                 loadDatabase();
-            } else { alert("ERROR: INVALID ACCESS"); }
+            } else { alert("ACCESS_DENIED"); }
         }
 
-        // Cargar Base de Datos
+        // Cargar Datos (Sin Cache)
         async function loadDatabase() {
-            document.getElementById('status-text').innerText = "FETCHING DATA...";
+            const statusText = document.getElementById('status-text');
+            statusText.innerText = "REFRESHING DATABASE...";
+            
             try {
-                // Forzamos lectura de API para evitar cache de GitHub Pages
+                // Forzamos la descarga del raw para evitar cache de GitHub
                 const res = await fetch(API_URL, {
-                    headers: { "Authorization": `token ${GITHUB_TOKEN}`, "Accept": "application/vnd.github.v3.raw" }
+                    headers: { 
+                        "Authorization": `token ${GITHUB_TOKEN}`,
+                        "Accept": "application/vnd.github.v3.raw",
+                        "Cache-Control": "no-cache"
+                    }
                 });
+                
                 const data = await res.json();
                 const tbody = document.getElementById('keyTableBody');
                 tbody.innerHTML = '';
@@ -206,73 +214,96 @@
                             </td>
                         </tr>`;
                 });
-                document.getElementById('status-text').innerText = "AUTH_TOKEN: ACTIVE // SYNCED";
+                statusText.innerText = "AUTH_TOKEN: ACTIVE // SYNCED";
             } catch(e) { 
-                document.getElementById('status-text').innerText = "SYNC_ERROR";
-                console.error(e); 
+                statusText.innerText = "OFFLINE // SYNC_ERROR";
             }
         }
 
-        // Generar Nueva Llave
+        // Función Blindada para Generar
         async function generateKey() {
+            const statusText = document.getElementById('status-text');
             const newKey = "ABYSS-" + Math.random().toString(36).substr(2, 9).toUpperCase();
-            document.getElementById('status-text').innerText = "GENERATING...";
-
-            const get = await fetch(API_URL, { headers: { "Authorization": `token ${GITHUB_TOKEN}` } });
-            const fileData = await get.json();
-            const content = JSON.parse(atob(fileData.content));
-
-            content[newKey] = { "hwid": "none", "status": "active", "expires": "2026-12-31" };
-
-            const update = await fetch(API_URL, {
-                method: "PUT",
-                headers: { "Authorization": `token ${GITHUB_TOKEN}`, "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    message: "Sync: License Generated",
-                    content: btoa(JSON.stringify(content, null, 2)),
-                    sha: fileData.sha
-                })
-            });
-
-            if(update.ok) { setTimeout(loadDatabase, 500); }
-        }
-
-        // Borrar Llave
-        async function deleteKey(target) {
-            if(!confirm(`¿Eliminar definitivamente ${target}?`)) return;
-            document.getElementById('status-text').innerText = "PURGING...";
-
-            const get = await fetch(API_URL, { headers: { "Authorization": `token ${GITHUB_TOKEN}` } });
-            const fileData = await get.json();
-            const content = JSON.parse(atob(fileData.content));
             
-            delete content[target];
+            statusText.innerText = "ACCESSING GITHUB CORE...";
 
-            const update = await fetch(API_URL, {
-                method: "PUT",
-                headers: { "Authorization": `token ${GITHUB_TOKEN}`, "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    message: "Sync: License Purged",
-                    content: btoa(JSON.stringify(content, null, 2)),
-                    sha: fileData.sha
-                })
-            });
+            try {
+                const response = await fetch(API_URL, { 
+                    headers: { "Authorization": `token ${GITHUB_TOKEN}` } 
+                });
 
-            if(update.ok) { setTimeout(loadDatabase, 500); }
+                const fileData = await response.json();
+                const content = JSON.parse(decodeURIComponent(escape(atob(fileData.content))));
+
+                content[newKey] = { "hwid": "none", "status": "active", "expires": "2026-12-31" };
+
+                statusText.innerText = "PUSHING UPDATE...";
+
+                const update = await fetch(API_URL, {
+                    method: "PUT",
+                    headers: { 
+                        "Authorization": `token ${GITHUB_TOKEN}`, 
+                        "Content-Type": "application/json" 
+                    },
+                    body: JSON.stringify({
+                        message: `System: Created ${newKey}`,
+                        content: btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2)))),
+                        sha: fileData.sha
+                    })
+                });
+
+                if (update.ok) { loadDatabase(); }
+            } catch (e) {
+                alert("Error de conexión: Verifica tu Token y permisos del Repo.");
+            }
         }
 
-        // Canvas Anim
+        // Función para Borrar
+        async function deleteKey(target) {
+            if(!confirm(`¿PURGE ${target}?`)) return;
+            const statusText = document.getElementById('status-text');
+            statusText.innerText = "PURGING FROM DATABASE...";
+
+            try {
+                const response = await fetch(API_URL, { 
+                    headers: { "Authorization": `token ${GITHUB_TOKEN}` } 
+                });
+                const fileData = await response.json();
+                const content = JSON.parse(decodeURIComponent(escape(atob(fileData.content))));
+                
+                delete content[target];
+
+                const update = await fetch(API_URL, {
+                    method: "PUT",
+                    headers: { 
+                        "Authorization": `token ${GITHUB_TOKEN}`, 
+                        "Content-Type": "application/json" 
+                    },
+                    body: JSON.stringify({
+                        message: `System: Purged ${target}`,
+                        content: btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2)))),
+                        sha: fileData.sha
+                    })
+                });
+
+                if (update.ok) { loadDatabase(); }
+            } catch (e) {
+                alert("Error al eliminar.");
+            }
+        }
+
+        // Particle Background
         const canvas = document.getElementById('canvas-bg');
         const ctx = canvas.getContext('2d');
         let particles = [];
         window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
         function initCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        class Particle {
+        class P {
             constructor() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.s = Math.random()*2; this.v = Math.random()*0.3; }
-            draw() { ctx.fillStyle = 'rgba(255,255,255,0.1)'; ctx.beginPath(); ctx.arc(this.x, this.y, this.s, 0, Math.PI*2); ctx.fill(); this.y-=this.v; if(this.y < -10) this.y = canvas.height+10; }
+            draw() { ctx.fillStyle = 'rgba(255,255,255,0.1)'; ctx.beginPath(); ctx.arc(this.x, this.y, this.s, 0, 7); ctx.fill(); this.y-=this.v; if(this.y < -10) this.y = canvas.height+10; }
         }
         initCanvas();
-        for(let i=0; i<60; i++) particles.push(new Particle());
+        for(let i=0; i<60; i++) particles.push(new P());
         function animate() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>p.draw()); requestAnimationFrame(animate); }
         animate();
     </script>
